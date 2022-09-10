@@ -31,4 +31,22 @@ public class ControllerMovimientoDinero {
         return new ResponseEntity<Object>(serviceMovimientoDinero.listarMovDineroJpa(), HttpStatus.OK);
     }
 
+    @GetMapping(path = "/buscarMovimientoDineroPorIdJpa/{id}")
+    public ResponseEntity<EntityMovimientoDinero> buscarMovimientoDineroPorIdJpa(@PathVariable Long id){
+
+        return new ResponseEntity<EntityMovimientoDinero>(serviceMovimientoDinero.buscarMovimientoDineroIdJPA(id), HttpStatus.OK);
+    }
+
+    @DeleteMapping(path = "/borrarMovimientoDineroJpa/{id}")
+    public ResponseEntity<Boolean> borrarMovimientoDineroJpa(@PathVariable Long id){
+
+        return new ResponseEntity<Boolean>(serviceMovimientoDinero.borrarMovDineroJpa(id), HttpStatus.OK);
+    }
+
+    @PatchMapping(path = "/actualizarMovimientoDineroParcialJpa/{idEmpleado}")
+    public ResponseEntity<Boolean> actualizarMovimientoDineroParcialJpa(@RequestBody EntityMovimientoDinero movDinero, @PathVariable Long idEmpleado){
+
+        return new ResponseEntity<Boolean>(serviceMovimientoDinero.actualizarDatosMovDineroJpa(movDinero, serviceEmpleado.buscarEmpleadoPorIdJpa(idEmpleado)), HttpStatus.OK);
+    }
+
 }

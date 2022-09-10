@@ -46,7 +46,7 @@ public class ControllerEmpleado {
     @PatchMapping(path = "/actualizarEmpleadoParcialJpa/{idEmpresa}", consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Boolean> actualizarEmpleadoParcialJpa(@RequestBody EntityEmpleado empleado, @PathVariable Long idEmpresa){
 
-        return new ResponseEntity<Boolean>(serviceEmpleado.actualizarDatosEmpleadoJpa(empleado, idEmpresa), HttpStatus.OK);
+        return new ResponseEntity<Boolean>(serviceEmpleado.actualizarDatosEmpleadoJpa(empleado, serviceEmpresa.buscarEmpresaPorIdJpa(idEmpresa)), HttpStatus.OK);
     }
 
     @PostMapping(path = "/insertarEmpleadoConEmpresaJpa/{id}", consumes = MediaType.APPLICATION_JSON_VALUE)
