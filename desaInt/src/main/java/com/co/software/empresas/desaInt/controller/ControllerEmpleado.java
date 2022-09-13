@@ -19,11 +19,6 @@ public class ControllerEmpleado {
     @Autowired
     ServiceEmpresa serviceEmpresa;
 
-    @PostMapping(path = "/insertarEmpleadoJPA", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Boolean> insertarEmpleadoJpa(@RequestBody EntityEmpleado empleado){
-
-        return new ResponseEntity<Boolean>(serviceEmpleado.insertarEmpleadoJpa(empleado), HttpStatus.OK);
-    }
 
     @GetMapping(path = "/listarEmpleadosJpa", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Object> listarEmpleadosJpa(){
