@@ -7,7 +7,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.view.RedirectView;
 
 @RestController
 @RequestMapping(value = "/empleado")
@@ -51,4 +53,18 @@ public class ControllerEmpleado {
         return new ResponseEntity<Boolean>(condicion, HttpStatus.OK);
     }
 
+    //Nuevas clases para aplicar al FrontEnd
+    //----------------------------------------------------------------------------------------------------------------------------------------
+
+    @PatchMapping(path = "/actualizarEmpleadoParcial")
+    public RedirectView actualizarEmpleado(@ModelAttribute EntityEmpleado empleado, Model modelo){
+
+        modelo.addAttribute(empleado);
+        if(serviceEmpleado.actualizarDatosEmpleadoJpa(empleado, empleado.getEmpresa()).equals(Boolean.TRUE)){
+            return new RedirectView("/pagina2");
+        }
+        else{
+            return new RedirectView("/error");
+        }
+    }
 }

@@ -14,22 +14,37 @@
 
     <div class="px-4 py-5 my-5 text-center">
         <h1 class="display-5 fw-bold mb-2">Lista</h1>
-        <div class="d-flex gap-5 justify-content-center">
+        <div class="d-flex gap-4 justify-content-center">
 
             <div  th:each="itemP : ${personas}" class="card" style="width: 18rem;">
 
                 <div th:switch="${itemP.rol.name()}">
 
-                    <img th:case="'ADMIN'" src="/img/empleado.png" class="card-img-top my-3" alt="...">
-                    <img th:case="'USER'" src="/img/empleados.png" class="card-img-top my-3" alt="...">
+                    <img th:case="'ADMIN'" src="/img/intentoAdmin.png" class="card-img-top my-3" alt="...">
+                    <img th:case="'USER'" src="/img/empleadoOperativo.png" class="card-img-top my-3" alt="...">
                     <img th:case="'VISITANTE'" src="/img/empleados.png" class="card-img-top my-3" alt="...">
 
                 </div>
 
                 <div class="card-body">
                     <h5 th:text=" ${itemP.nombre} + ' ' + ${itemP.apellido}" class="card-title">Card title</h5>
-                    <p th:text=" ${itemP.doc} + ' ' + ${itemP.edad}" class="card-text"></p>
-                    <a href="#" class="btn btn-primary">Go somewhere</a>
+                    <p th:text=" 'N° documento: ' + ${itemP.doc}" class="card-text"></p>
+                    <p th:text=" 'Edad: ' + ${itemP.edad}" class="card-text"></p>
+                    <p th:text=" 'Rol: ' + ${itemP.rol.name()}" class="card-text"></p>
+                </div>
+                <div class="lead mb-2">
+
+                    <form th:action="@{/editarPersona/{id}(id=${itemP.id})}" th:method="get">
+                        <button class="btn btn-warning" type="submit">Editar persona</button>
+                    </form>
+
+                </div>
+                <div class="lead mb-2">
+
+                    <form th:action="@{/persona/udea/mintic/borrarPersonaJPA/{id}(id=${itemP.id})}" th:method="delete">
+                        <button class="btn btn-danger" type="submit">Eliminar persona</button>
+                    </form>
+
                 </div>
             </div>
 

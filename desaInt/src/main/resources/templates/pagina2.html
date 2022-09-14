@@ -1,16 +1,45 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
+    <link rel="icon" type="image/x-icon" href="img/logo.ico">
+    <title>App DesaInt</title>
 </head>
 <body>
+<main>
 
-<h4>Hola soy la pagina 2</h4>
-<a href="/">Ir a Home</a>
+    <div class="px-4 py-5 my-5 text-center">
+        <h1 class="display-5 fw-bold mb-2">Empleados</h1>
+        <div class="d-flex gap-4 justify-content-center">
 
+            <div th:each="itemEmp : ${empleados}" class="card" style="width: 18rem;">
+
+                <div th:switch="${itemEmp.rol.name()}">
+                    
+                    <img th:case="'ADMINISTRADOR'" src="/img/administrador.png" class="card-img-top my-3" alt="...">
+                    <img th:case="'OPERATIVO'" src="/img/operativo.png" class="card-img-top my-3" alt="...">
+                </div>
+
+                <div class="card-body">
+                    <h5 th:text="${itemEmp.nombre}" class="card-title">Card title</h5>
+                    <p th:text=" 'Rol: ' + ${itemEmp.rol.name()}" class="card-text"></p>
+                </div>
+
+                <div class="lead mb-2">
+                    <form th:action="@{/editarEmpleado/{idEmpleado}(idEmpleado=${itemEmp.id})}" th:method="get">
+                        <button class="btn btn-warning" type="submit">Editar</button>
+                    </form>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+</main>
 </body>
 </html>

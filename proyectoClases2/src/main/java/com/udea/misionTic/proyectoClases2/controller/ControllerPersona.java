@@ -8,7 +8,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.view.RedirectView;
 
 import java.util.ArrayList;
 
@@ -134,12 +136,13 @@ public class ControllerPersona {
     }
 
     //Hay que validar si existe, implementar si hay tiempo
+    /*
     @PutMapping(path = "/udea/mintic/actualizarTodoJPA", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Boolean> actualizarTodoJPA(@RequestBody EntityPersona persona){
 
         return new ResponseEntity<Boolean>(servicePersona.actualizarTodoJPA(persona), HttpStatus.OK);
     }
-
+    */
     @PatchMapping(path = "/udea/mintic/actualizarParcialJPA", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public void insertarParcialJPA(@RequestBody EntityPersona persona){
 
@@ -147,15 +150,43 @@ public class ControllerPersona {
     }
 
     @DeleteMapping(path = "/udea/mintic/borrarPersonaJPA/{id}")
-    public void borrarPersonaJPA(@PathVariable Long id){
+    public RedirectView borrarPersonaJPA(@PathVariable Long id){
 
         servicePersona.borrarPersonaJPA(id);
+        return new RedirectView("/pagina2");
     }
 
-    @PostMapping(path = "/udea/mintic/insertarPersonaRol", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+
+    @PostMapping(path = "/udea/mintic/insertarPersonaRolPostMan", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public void insertarPersonaRol(@RequestBody EntityPersona persona){
 
         servicePersona.insertarPersonaRol(persona);
+    }
+
+
+    @PostMapping(path = "/udea/mintic/insertarPersonaRol")
+    public RedirectView insertarPersonaRol(@ModelAttribute EntityPersona persona, Model modelo){
+
+        modelo.addAttribute(persona);
+        if(servicePersona.insertarPersonaRol(persona).equals(Boolean.TRUE)){
+            return new RedirectView("/pagina2");
+        }
+        else{
+            return new RedirectView("/error");
+        }
+    }
+
+    @PutMapping(path = "/udea/mintic/actualizarTodoJPA")
+    public RedirectView actualizarTodoJPA(@ModelAttribute EntityPersona persona, Model modelo){
+
+        modelo.addAttribute(persona);
+        if(servicePersona.actualizarTodoJPA(persona).equals(Boolean.TRUE)){
+            return new RedirectView("/pagina2");
+        }
+        else{
+            return new RedirectView("/error");
+        }
+
     }
 
 
