@@ -3,6 +3,8 @@ package com.co.software.empresas.desaInt.controller;
 import com.co.software.empresas.desaInt.domain.EntityEmpleado;
 import com.co.software.empresas.desaInt.services.ServiceEmpleado;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.oauth2.core.oidc.user.OidcUser;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -17,18 +19,23 @@ public class ControllerFrontEnd {
     ServiceEmpleado serviceEmpleado;
 
     @GetMapping(path = "/")
-    public String home(){
+    public String home(Model model, @AuthenticationPrincipal OidcUser principal){
 
         return "index";
     }
 
     @GetMapping(path = "/pagina2")
-    public String pagina2(Model modelo){
+    public String pagina2(Model modelo, @AuthenticationPrincipal OidcUser principal){
 
-        List<EntityEmpleado> listEmpleados = serviceEmpleado.listarEmpleadosJpa();
-        modelo.addAttribute("empleados", listEmpleados);
+        if(principal != null){
+            List<EntityEmpleado> listEmpleados = serviceEmpleado.listarEmpleadosJpa();
+            modelo.addAttribute("empleados", listEmpleados);
 
-        return "pagina2";
+            return "pagina2";
+        }
+        else{
+            return "index";
+        }
     }
 
     @GetMapping(path = "/editarEmpleado/{idEmpleado}")

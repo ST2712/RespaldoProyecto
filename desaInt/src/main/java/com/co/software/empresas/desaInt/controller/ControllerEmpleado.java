@@ -67,4 +67,17 @@ public class ControllerEmpleado {
             return new RedirectView("/error");
         }
     }
+
+    @DeleteMapping(path = "/borrarEmpleado/{idEmpleado}")
+    public RedirectView borrarEmpleado(@PathVariable Long idEmpleado){
+
+        Boolean cumplio = serviceEmpleado.borrarEmpleadoJpa(idEmpleado);
+
+        if(cumplio.equals(Boolean.TRUE)){
+            return new RedirectView("/pagina2");
+        }
+        else{
+            return new RedirectView("/error");
+        }
+    }
 }
