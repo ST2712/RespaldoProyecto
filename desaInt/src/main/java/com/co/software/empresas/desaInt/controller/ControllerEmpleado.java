@@ -81,10 +81,10 @@ public class ControllerEmpleado {
         }
     }
 
-    @PostMapping(path = "/insertarEmpleado/{idEmpresa}")
-    public RedirectView insertarEmpleado(@ModelAttribute EntityEmpleado empleado, Model modelo,@PathVariable Long idEmpresa){
+    @PostMapping(path = "/insertarEmpleado")
+    public RedirectView insertarEmpleado(@ModelAttribute EntityEmpleado empleado, Model modelo){
 
-        Boolean condicion = serviceEmpleado.asginarEmpleadoConEmpresaJpa(empleado, serviceEmpresa.buscarEmpresaPorIdJpa(idEmpresa));
+        Boolean condicion = serviceEmpleado.asginarEmpleadoConEmpresaHtml(empleado);
 
         modelo.addAttribute(empleado);
         if(condicion.equals(Boolean.TRUE)){
