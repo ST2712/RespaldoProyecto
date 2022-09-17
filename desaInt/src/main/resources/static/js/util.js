@@ -1,0 +1,3 @@
+function despliegueListarEmpleados(){
+    document.getElementById()
+}

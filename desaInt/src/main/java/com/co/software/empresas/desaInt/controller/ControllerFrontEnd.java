@@ -1,6 +1,7 @@
 package com.co.software.empresas.desaInt.controller;
 
 import com.co.software.empresas.desaInt.domain.EntityEmpleado;
+import com.co.software.empresas.desaInt.repository.RepositoryEmpleado;
 import com.co.software.empresas.desaInt.services.ServiceEmpleado;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -20,7 +21,6 @@ public class ControllerFrontEnd {
 
     @GetMapping(path = "/")
     public String home(Model model, @AuthenticationPrincipal OidcUser principal){
-
         return "index";
     }
 
@@ -30,6 +30,7 @@ public class ControllerFrontEnd {
         if(principal != null){
             List<EntityEmpleado> listEmpleados = serviceEmpleado.listarEmpleadosJpa();
             modelo.addAttribute("empleados", listEmpleados);
+            modelo.addAttribute("nombreUsuario", principal.getIdToken().getClaims().get("nickname"));
 
             return "pagina2";
         }
@@ -45,4 +46,10 @@ public class ControllerFrontEnd {
         modelo.addAttribute("eEmpleado", eTemp);
         return "editarEmpleado";
     }
+
+    @GetMapping(path = "/dashboard")
+    public String dashboard(){
+        return "dashboard";
+    }
+
 }
