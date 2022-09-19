@@ -82,16 +82,16 @@ public class ControllerEmpleado {
     }
 
     @PostMapping(path = "/insertarEmpleado")
-    public RedirectView insertarEmpleado(@ModelAttribute EntityEmpleado empleado, Model modelo){
+    public void insertarEmpleado(@ModelAttribute EntityEmpleado empleado, Model modelo){
 
         Boolean condicion = serviceEmpleado.asginarEmpleadoConEmpresaHtml(empleado);
 
         modelo.addAttribute(empleado);
         if(condicion.equals(Boolean.TRUE)){
-            return new RedirectView("/pagina2");
+            //return new RedirectView("/dashboard");
         }
         else{
-            return new RedirectView("/error");
+            //return new RedirectView("/error");
         }
     }
 }

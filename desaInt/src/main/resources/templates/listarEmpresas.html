@@ -24,32 +24,28 @@
 
 
     <div sec:authorize="isAuthenticated()" class="px-4 py-5 my-5 text-center">
-        <h1 class="display-5 fw-bold mb-2">Empleados</h1>
+        <h1 class="display-5 fw-bold mb-2">Empresas</h1>
         <div class="d-flex gap-4 justify-content-center">
 
-            <div th:each="itemEmp : ${empleados}" class="card" style="width: 18rem;">
+            <div th:each="itemEmpresas : ${empresas}" class="card" style="width: 18rem;">
 
-                <div th:switch="${itemEmp.rol.name()}">
-                    
-                    <img th:case="'ADMINISTRADOR'" src="/img/administrador.png" class="card-img-top my-3" alt="...">
-                    <img th:case="'OPERATIVO'" src="/img/operativo.png" class="card-img-top my-3" alt="...">
-                </div>
+                    <img src="/img/empresa.png" class="card-img-top my-3" alt="...">
 
                 <div class="card-body">
-                    <h5 th:text="${itemEmp.nombre}" class="card-title">Card title</h5>
-                    <p th:text=" 'Rol: ' + ${itemEmp.rol.name()}" class="card-text"></p>
-                    <p th:text=" 'Correo: ' + ${itemEmp.correo}" class="card-text"></p>
-                    <p th:text=" 'Id empresa: ' + ${itemEmp.idEmpresa}" class="card-text"></p>
+                    <h5 th:text="${itemEmpresas.nombre}" class="card-title">Card title</h5>
+                    <p th:text=" 'Nit: ' + ${itemEmpresas.nit}" class="card-text"></p>
+                    <p th:text=" 'Direccion: ' + ${itemEmpresas.direccion}" class="card-text"></p>
+                    <p th:text=" 'Telefono: ' + ${itemEmpresas.telefono}" class="card-text"></p>
                 </div>
 
                 <div class="lead mb-2">
-                    <form th:action="@{/editarEmpleado/{idEmpleado}(idEmpleado=${itemEmp.id})}" th:method="get">
+                    <form>
                         <button class="btn btn-warning bi bi-pencil-square" type="submit">Editar</button>
                     </form>
                 </div>
 
                 <div class="lead mb-2">
-                    <form th:action="@{/empleado/borrarEmpleado/{idEmpleado}(idEmpleado=${itemEmp.id})}" th:method="delete">
+                    <form>
                         <button class="btn btn-danger bi bi-trash" type="submit">Eliminar</button>
                     </form>
                 </div>

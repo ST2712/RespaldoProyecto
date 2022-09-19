@@ -14,7 +14,7 @@
 <main>
     <div class="d-flex flex-column align-items-center px-4 py-5 my-5 text-center">
 
-        <h1>Nueva persona</h1>
+        <h1>Crear empleado</h1>
         <form class="d-flex flex-column gap-3 align-items-center" th:action="@{/empleado/insertarEmpleado}" th:method="post" th:object="${nEmpleado}">
             <input th:field="*{nombre}" class="form-control" type="text" placeholder="Nombre" />
             <input th:field="*{correo}" class="form-control" type="text" placeholder="correo@ejemplo.com" />

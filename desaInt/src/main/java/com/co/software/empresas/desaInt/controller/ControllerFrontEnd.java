@@ -1,8 +1,10 @@
 package com.co.software.empresas.desaInt.controller;
 
 import com.co.software.empresas.desaInt.domain.EntityEmpleado;
+import com.co.software.empresas.desaInt.domain.EntityEmpresa;
 import com.co.software.empresas.desaInt.repository.RepositoryEmpleado;
 import com.co.software.empresas.desaInt.services.ServiceEmpleado;
+import com.co.software.empresas.desaInt.services.ServiceEmpresa;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.oauth2.core.oidc.user.OidcUser;
@@ -19,6 +21,8 @@ public class ControllerFrontEnd {
 
     @Autowired
     ServiceEmpleado serviceEmpleado;
+    @Autowired
+    ServiceEmpresa serviceEmpresa;
 
     @GetMapping(path = "/")
     public String home(Model model, @AuthenticationPrincipal OidcUser principal){
@@ -49,14 +53,62 @@ public class ControllerFrontEnd {
     }
 
     @GetMapping(path = "/dashboard")
-    public String dashboard(){
-        return "dashboard";
+    public String dashboard(Model modelo, @AuthenticationPrincipal OidcUser principal){
+
+        if(principal != null) {
+            modelo.addAttribute("nombreUsuario", principal.getIdToken().getClaims().get("nickname"));
+            return "dashboard";
+        }
+        else{
+            return "index";
+        }
+    }
+
+    @GetMapping(path = "/dashboardCrearEmpleado")
+    public String dashboardCrearEmpleado(Model modelo, @AuthenticationPrincipal OidcUser principal){
+
+        if(principal != null) {
+            modelo.addAttribute("nombreUsuario", principal.getIdToken().getClaims().get("nickname"));
+            return "dashboardCrearEmpleado";
+        }
+        else{
+            return "index";
+        }
     }
 
     @GetMapping(path = "/crearEmpleado")
     public String crearEmpleado(Model modelo){
         modelo.addAttribute("nEmpleado", new EntityEmpleado());
         return "crearEmpleado";
+    }
+
+    @GetMapping(path = "/listarEmpresas")
+    public String listarEmpresas(Model modelo, @AuthenticationPrincipal OidcUser principal){
+
+        if(principal != null){
+            List<EntityEmpresa> listEmpresas = serviceEmpresa.listarEmpresasJpa();
+            modelo.addAttribute("empresas", listEmpresas);
+            modelo.addAttribute("nombreUsuario", principal.getIdToken().getClaims().get("nickname"));
+
+            return "listarEmpresas";
+        }
+        else{
+            return "index";
+        }
+    }
+
+    @GetMapping(path = "/dashboardListarEmpresas")
+    public String dashboardListarEmpresas(Model modelo, @AuthenticationPrincipal OidcUser principal){
+
+        if(principal != null){
+            List<EntityEmpresa> listEmpresas = serviceEmpresa.listarEmpresasJpa();
+            modelo.addAttribute("empresas", listEmpresas);
+            modelo.addAttribute("nombreUsuario", principal.getIdToken().getClaims().get("nickname"));
+            return "dashboardListarEmpresas";
+        }
+        else{
+            return "index";
+        }
     }
 
 }

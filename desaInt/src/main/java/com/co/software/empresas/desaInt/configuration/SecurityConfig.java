@@ -19,6 +19,8 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         return http
+                .csrf()
+                .disable()
                 .headers().disable()
                 .oauth2Login()
                 .and().logout()

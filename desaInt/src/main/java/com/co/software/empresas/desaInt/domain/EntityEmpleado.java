@@ -25,6 +25,7 @@ public class EntityEmpleado {
         this.correo = correo;
         this.rol = rol;
         this.empresa = empresa;
+        this.idEmpresa = empresa.getId();
     }
 
     @Id
