@@ -14,7 +14,7 @@ public class EntityMovimientoDinero {
     }
 
     public EntityMovimientoDinero(Long montoMoviento, String conceptoMovimiento, EntityEmpleado empleado) {
-        this.montoMoviento = montoMoviento;
+        this.montoMovimiento = montoMoviento;
         this.conceptoMovimiento = conceptoMovimiento;
         this.empleado = empleado;
     }
@@ -24,7 +24,7 @@ public class EntityMovimientoDinero {
     private Long id;
 
     @Column(name = "monto_movimiento")
-    private Long montoMoviento;
+    private Long montoMovimiento;
 
     @Column(name = "concepto_movimiento")
     private String conceptoMovimiento;

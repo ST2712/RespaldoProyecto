@@ -1,8 +1,10 @@
 package com.co.software.empresas.desaInt.domain;
 
+import com.co.software.empresas.desaInt.services.ServiceEmpresa;
 import com.co.software.empresas.desaInt.util.EnumRol;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.persistence.*;
 import java.util.Collection;
@@ -11,6 +13,8 @@ import java.util.Collection;
 @Entity
 @Table(name = "empleado")
 public class EntityEmpleado {
+
+    private Long idEmpresa;
 
     public EntityEmpleado(){
 
@@ -21,6 +25,7 @@ public class EntityEmpleado {
         this.correo = correo;
         this.rol = rol;
         this.empresa = empresa;
+        this.idEmpresa = empresa.getId();
     }
 
     @Id

@@ -181,7 +181,7 @@ public class ServicePersona {
         repositoryPersona.deleteById(id);
     }
 
-    public void insertarPersonaRol(EntityPersona persona){
+    public Boolean insertarPersonaRol(EntityPersona persona){
 
         if(persona.getRol().equals(EnumRol.ADMIN)){
 
@@ -201,7 +201,14 @@ public class ServicePersona {
         }
         else{
             System.err.println("No se pudo obtener el rol");
+            return Boolean.FALSE;
         }
+        return Boolean.TRUE;
+    }
+
+    public EntityPersona buscarPersonaId(Long id){
+
+        return repositoryPersona.findById(id).orElse(null);
     }
 
 }

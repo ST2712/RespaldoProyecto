@@ -2,7 +2,6 @@ package com.co.software.empresas.desaInt.services;
 
 import com.co.software.empresas.desaInt.domain.EntityEmpleado;
 import com.co.software.empresas.desaInt.domain.EntityEmpresa;
-import com.co.software.empresas.desaInt.domain.EntityMovimientoDinero;
 import com.co.software.empresas.desaInt.repository.RepositoryEmpleado;
 import com.co.software.empresas.desaInt.repository.RepositoryEmpresa;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,7 +16,7 @@ public class ServiceEmpleado {
     RepositoryEmpleado repositoryEmpleado;
 
     @Autowired
-    RepositoryEmpresa repositoryEmpresa;
+    ServiceEmpresa serviceEmpresa;
 
     public Boolean insertarEmpleadoJpa(EntityEmpleado empleado){
 
@@ -56,7 +55,7 @@ public class ServiceEmpleado {
         return repositoryEmpleado.findById(id).orElse(null);
     }
 
-    public Boolean actualizarDatosEmpleadoJpa(EntityEmpleado empleado, Long idEmpresa){
+    public Boolean actualizarDatosEmpleadoJpa(EntityEmpleado empleado, EntityEmpresa empresa){
 
         EntityEmpleado empTemp = buscarEmpleadoPorIdJpa(empleado.getId());
 
@@ -70,8 +69,8 @@ public class ServiceEmpleado {
         if(empleado.getCorreo() != null){
             empTemp.setCorreo(empleado.getCorreo());
         }
-        if (idEmpresa != null){
-            empTemp.setEmpresa(repositoryEmpresa.findById(idEmpresa).orElse(null));
+        if (empresa != null){
+            empTemp.setEmpresa(empresa);
         }
         if(empleado.getRol() != null){
             empTemp.setRol(empleado.getRol());
@@ -89,6 +88,17 @@ public class ServiceEmpleado {
 
         try{
             EntityEmpleado entityEmpleadoTemp = new EntityEmpleado(empleado.getNombre(), empleado.getCorreo(), empleado.getRol(), empresa);
+            repositoryEmpleado.save(entityEmpleadoTemp);
+        } catch (Exception e){
+            return Boolean.FALSE;
+        }
+        return Boolean.TRUE;
+    }
+
+    public Boolean asginarEmpleadoConEmpresaHtml(EntityEmpleado empleado){
+
+        try{
+            EntityEmpleado entityEmpleadoTemp = new EntityEmpleado(empleado.getNombre(), empleado.getCorreo(), empleado.getRol(), serviceEmpresa.buscarEmpresaPorIdJpa(Long.parseLong("43")));
             repositoryEmpleado.save(entityEmpleadoTemp);
         } catch (Exception e){
             return Boolean.FALSE;
