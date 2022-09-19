@@ -35,7 +35,10 @@
                                 <a href='/dashboard' class="nav-link px-0"> <span class="d-none d-sm-inline ">Listar</span>  </a>
                             </li>
                             <li>
-                                <a onclick=alertaCrearEmpleados() class="nav-link px-0"> <span class="d-none d-sm-inline">Agregar</span>  </a>
+                                <a href="#" class="nav-link px-0"> <span class="d-none d-sm-inline">Agregar</span>  </a>
+                            </li>
+                            <li>
+                                <a href='#' class="nav-link px-0"> <span class="d-none d-sm-inline">Buscar</span>  </a>
                             </li>
                         </ul>
                     </li>
@@ -44,19 +47,13 @@
                             <i class="fs-4 bi bi-building"></i> <span class="ms-1 d-none d-sm-inline">Empresa</span> </a>
                         <ul class="collapse nav flex-column ms-1" id="submenu2" data-bs-parent="#menu">
                             <li class="w-100">
-                                <a href="/dashboardListarEmpresas" class="nav-link px-0"> <span class="d-none d-sm-inline">Listar</span> </a>
+                                <a onclick="alertaListarEmpresas()" class="nav-link px-0"> <span class="d-none d-sm-inline">Listar</span> </a>
                             </li>
                             <li>
                                 <a href="#" class="nav-link px-0"> <span class="d-none d-sm-inline">Agregar</span> </a>
                             </li>
                             <li>
-                                <a href="#" class="nav-link px-0"> <span class="d-none d-sm-inline">Editar</span> </a>
-                            </li>
-                            <li>
                                 <a href="#" class="nav-link px-0"> <span class="d-none d-sm-inline">Buscar</span> </a>
-                            </li>
-                            <li>
-                                <a href="#" class="nav-link px-0"> <span class="d-none d-sm-inline">Eliminar</span>  </a>
                             </li>
                         </ul>
                     </li>
@@ -66,18 +63,6 @@
                         <ul class="collapse nav flex-column ms-1" id="submenu3" data-bs-parent="#menu">
                             <li class="w-100">
                                 <a href="#" class="nav-link px-0"> <span class="d-none d-sm-inline">Listar</span> </a>
-                            </li>
-                            <li>
-                                <a href="#" class="nav-link px-0"> <span class="d-none d-sm-inline">Agregar</span> </a>
-                            </li>
-                            <li>
-                                <a href="#" class="nav-link px-0"> <span class="d-none d-sm-inline">Editar</span>  </a>
-                            </li>
-                            <li>
-                                <a href="#" class="nav-link px-0"> <span class="d-none d-sm-inline">Buscar</span>  </a>
-                            </li>
-                            <li>
-                                <a href="#" class="nav-link px-0"> <span class="d-none d-sm-inline">Eliminar</span>  </a>
                             </li>
                         </ul>
                     </li>
@@ -89,14 +74,12 @@
         </div>
 
         <div style="display: block;" class="col py-3">
-            <iframe src="/listarEmpleados" height="100%" width="100%"></iframe>
+            <iframe src="/listarEmpresas" height="100%" width="100%"></iframe>
         </div>
 
     </div>
 </div>
 
-
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-u1OknCvxWvY5kfmNBILK2hRnQC3Pr17a+RTT6rIHI7NnikvbZlHgTPOOmMi466C8" crossorigin="anonymous"></script>
-
 </body>
 </html>
