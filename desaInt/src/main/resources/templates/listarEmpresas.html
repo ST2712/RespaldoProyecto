@@ -39,7 +39,7 @@
                 </div>
 
                 <div class="lead mb-2">
-                    <form>
+                    <form th:action="@{/editarEmpresa/{idEmpresa}(idEmpresa=${itemEmpresas.id})}" th:method="get">
                         <button class="btn btn-warning bi bi-pencil-square" type="submit">Editar</button>
                     </form>
                 </div>

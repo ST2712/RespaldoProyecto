@@ -53,7 +53,7 @@ public class ControllerEmpleado {
         return new ResponseEntity<Boolean>(condicion, HttpStatus.OK);
     }
 
-    //Nuevas clases para aplicar al FrontEnd
+    //Nuevos metodos para aplicar al FrontEnd
     //----------------------------------------------------------------------------------------------------------------------------------------
 
     @PatchMapping(path = "/actualizarEmpleadoParcial")
@@ -82,16 +82,16 @@ public class ControllerEmpleado {
     }
 
     @PostMapping(path = "/insertarEmpleado")
-    public void insertarEmpleado(@ModelAttribute EntityEmpleado empleado, Model modelo){
+    public RedirectView insertarEmpleado(@ModelAttribute EntityEmpleado empleado, Model modelo){
 
         Boolean condicion = serviceEmpleado.asginarEmpleadoConEmpresaHtml(empleado);
 
         modelo.addAttribute(empleado);
         if(condicion.equals(Boolean.TRUE)){
-            //return new RedirectView("/dashboard");
+            return new RedirectView("/pagina2");
         }
         else{
-            //return new RedirectView("/error");
+            return new RedirectView("/error");
         }
     }
 }
