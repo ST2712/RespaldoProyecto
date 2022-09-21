@@ -16,7 +16,7 @@ import org.springframework.web.servlet.view.RedirectView;
 public class ControllerEmpleado {
 
     @Autowired
-    ServiceEmpleado serviceEmpleado;
+    ServiceEmpleado     serviceEmpleado;
 
     @Autowired
     ServiceEmpresa serviceEmpresa;
@@ -84,11 +84,11 @@ public class ControllerEmpleado {
     @PostMapping(path = "/insertarEmpleado")
     public RedirectView insertarEmpleado(@ModelAttribute EntityEmpleado empleado, Model modelo){
 
-        Boolean condicion = serviceEmpleado.asginarEmpleadoConEmpresaHtml(empleado);
+        Boolean condicion = serviceEmpleado.asginarEmpleadoConEmpresaJpa(empleado, serviceEmpresa.buscarEmpresaPorIdJpa(empleado.getIdEmpresa()));
 
         modelo.addAttribute(empleado);
         if(condicion.equals(Boolean.TRUE)){
-            return new RedirectView("/pagina2");
+            return new RedirectView("/listarEmpresas");
         }
         else{
             return new RedirectView("/error");

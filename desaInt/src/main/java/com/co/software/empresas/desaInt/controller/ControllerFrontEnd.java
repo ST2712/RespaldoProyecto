@@ -5,6 +5,7 @@ import com.co.software.empresas.desaInt.domain.EntityEmpresa;
 import com.co.software.empresas.desaInt.repository.RepositoryEmpleado;
 import com.co.software.empresas.desaInt.services.ServiceEmpleado;
 import com.co.software.empresas.desaInt.services.ServiceEmpresa;
+import com.co.software.empresas.desaInt.util.EnumRol;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.oauth2.core.oidc.user.OidcUser;
@@ -12,6 +13,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 
 import java.util.List;
 
@@ -75,12 +77,6 @@ public class ControllerFrontEnd {
         }
     }
 
-    @GetMapping(path = "/crearEmpleado")
-    public String crearEmpleado(Model modelo){
-        modelo.addAttribute("nEmpleado", new EntityEmpleado());
-        return "crearEmpleado";
-    }
-
     @GetMapping(path = "/listarEmpresas")
     public String listarEmpresas(Model modelo, @AuthenticationPrincipal OidcUser principal){
 
@@ -116,6 +112,32 @@ public class ControllerFrontEnd {
         EntityEmpresa eTemp = serviceEmpresa.buscarEmpresaPorIdJpa(idEmpresa);
         modelo.addAttribute("eEmpresa", eTemp);
         return "editarEmpresa";
+    }
+
+    @GetMapping(path = "/crearEmpleado/{idEmpresa}")
+    public String crearEmpleado(Model modelo, @PathVariable("idEmpresa") Long idEmpresa){
+        modelo.addAttribute("nEmpleado", new EntityEmpleado(serviceEmpresa.buscarEmpresaPorIdJpa(idEmpresa)));
+        return "crearEmpleado";
+    }
+
+    @GetMapping(path = "/dashboardListarEmpleados")
+    public String dashboardListarEmpleados(Model modelo, @AuthenticationPrincipal OidcUser principal){
+
+        if(principal != null){
+            List<EntityEmpresa> listEmpresas = serviceEmpresa.listarEmpresasJpa();
+            modelo.addAttribute("empresas", listEmpresas);
+            modelo.addAttribute("nombreUsuario", principal.getIdToken().getClaims().get("nickname"));
+            return "dashboardListarEmpleados";
+        }
+        else{
+            return "index";
+        }
+    }
+
+    @GetMapping(path = "/crearEmpresa")
+    public String crearEmpresa(Model modelo){
+        modelo.addAttribute("nEmpresa", new EntityEmpresa());
+        return "crearEmpresa";
     }
 
 }

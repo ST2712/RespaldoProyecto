@@ -28,6 +28,11 @@ public class EntityEmpleado {
         this.idEmpresa = empresa.getId();
     }
 
+    public EntityEmpleado(EntityEmpresa empresa) {
+        this.empresa = empresa;
+        this.idEmpresa = empresa.getId();
+    }
+
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;

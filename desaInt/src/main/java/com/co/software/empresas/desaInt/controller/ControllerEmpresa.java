@@ -1,5 +1,6 @@
 package com.co.software.empresas.desaInt.controller;
 
+import com.co.software.empresas.desaInt.domain.EntityEmpleado;
 import com.co.software.empresas.desaInt.domain.EntityEmpresa;
 import com.co.software.empresas.desaInt.services.ServiceEmpresa;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -62,6 +63,32 @@ public class ControllerEmpresa {
         modelo.addAttribute(empresa);
         if(serviceEmpresa.actualizarDatosEmpresaJpa(empresa).equals(Boolean.TRUE)){
             return new RedirectView("/listarEmpresas");
+        }
+        else{
+            return new RedirectView("/error");
+        }
+    }
+
+    @DeleteMapping(path = "/borrarEmpresa/{idEmpresa}")
+    public RedirectView borrarEmpresa(@PathVariable Long idEmpresa){
+
+        Boolean condicion = serviceEmpresa.borrarEmpresaJpa(idEmpresa);
+        if(condicion == Boolean.TRUE){
+            return new RedirectView("/listarEmpresas");
+        }
+        else{
+            return new RedirectView("/error");
+        }
+    }
+
+    @PostMapping(path = "/insertarEmpresa")
+    public RedirectView insertarEmpresa(@ModelAttribute EntityEmpresa empresa, Model modelo){
+
+        Boolean condicion = serviceEmpresa.insertarEmpresaJpa(empresa);
+
+        modelo.addAttribute(empresa);
+        if(condicion.equals(Boolean.TRUE)){
+            return new RedirectView("/dashboard");
         }
         else{
             return new RedirectView("/error");
