@@ -2,9 +2,11 @@ package com.co.software.empresas.desaInt.controller;
 
 import com.co.software.empresas.desaInt.domain.EntityEmpleado;
 import com.co.software.empresas.desaInt.domain.EntityEmpresa;
+import com.co.software.empresas.desaInt.domain.EntityMovimientoDinero;
 import com.co.software.empresas.desaInt.repository.RepositoryEmpleado;
 import com.co.software.empresas.desaInt.services.ServiceEmpleado;
 import com.co.software.empresas.desaInt.services.ServiceEmpresa;
+import com.co.software.empresas.desaInt.services.ServiceMovimientoDinero;
 import com.co.software.empresas.desaInt.util.EnumRol;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -24,6 +26,8 @@ public class ControllerFrontEnd {
     ServiceEmpleado serviceEmpleado;
     @Autowired
     ServiceEmpresa serviceEmpresa;
+    @Autowired
+    ServiceMovimientoDinero serviceMovimientoDinero;
 
     @GetMapping(path = "/")
     public String home(Model model, @AuthenticationPrincipal OidcUser principal){
@@ -140,4 +144,40 @@ public class ControllerFrontEnd {
         return "crearEmpresa";
     }
 
+    @GetMapping(path = "/dashboardCrearEmpresa")
+    public String dashboardCrearEmpresa(Model modelo, @AuthenticationPrincipal OidcUser principal){
+
+        if(principal != null) {
+            modelo.addAttribute("nombreUsuario", principal.getIdToken().getClaims().get("nickname"));
+            return "dashboardCrearEmpresa";
+        }
+        else{
+            return "index";
+        }
+    }
+
+    @GetMapping(path = "/listarMovDinero")
+    public String dashboardListarMovDinero(Model modelo, @AuthenticationPrincipal OidcUser principal){
+
+        List<EntityMovimientoDinero> listMovDinero = serviceMovimientoDinero.listarMovDineroJpa();
+        modelo.addAttribute("movimientos", listMovDinero);
+        return "listarMovDinero";
+    }
+
+    /*
+    @GetMapping(path = "/listarEmpresas")
+    public String listarEmpresas(Model modelo, @AuthenticationPrincipal OidcUser principal){
+
+        if(principal != null){
+            List<EntityEmpresa> listEmpresas = serviceEmpresa.listarEmpresasJpa();
+            modelo.addAttribute("empresas", listEmpresas);
+            modelo.addAttribute("nombreUsuario", principal.getIdToken().getClaims().get("nickname"));
+
+            return "listarEmpresas";
+        }
+        else{
+            return "index";
+        }
+    }
+    */
 }

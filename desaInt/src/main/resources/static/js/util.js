@@ -9,3 +9,7 @@ function alertaListarEmpleados(){
 function alertaListarEmpresas(){
     alert("Ya estas en la pagina para listar a las empresas")
 }
+
+function alertaCrearEmpresas(){
+    alert("Ya estas en la pagina para crear una empresa")
+}

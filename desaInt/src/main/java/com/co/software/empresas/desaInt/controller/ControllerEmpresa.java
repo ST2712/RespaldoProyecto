@@ -88,7 +88,7 @@ public class ControllerEmpresa {
 
         modelo.addAttribute(empresa);
         if(condicion.equals(Boolean.TRUE)){
-            return new RedirectView("/dashboard");
+            return new RedirectView("/listarEmpresas");
         }
         else{
             return new RedirectView("/error");
