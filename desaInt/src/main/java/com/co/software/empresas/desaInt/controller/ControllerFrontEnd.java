@@ -157,27 +157,23 @@ public class ControllerFrontEnd {
     }
 
     @GetMapping(path = "/listarMovDinero")
-    public String dashboardListarMovDinero(Model modelo, @AuthenticationPrincipal OidcUser principal){
+    public String listarMovDinero(Model modelo, @AuthenticationPrincipal OidcUser principal){
 
         List<EntityMovimientoDinero> listMovDinero = serviceMovimientoDinero.listarMovDineroJpa();
         modelo.addAttribute("movimientos", listMovDinero);
         return "listarMovDinero";
     }
 
-    /*
-    @GetMapping(path = "/listarEmpresas")
-    public String listarEmpresas(Model modelo, @AuthenticationPrincipal OidcUser principal){
+    @GetMapping(path = "/dashboardListarMovDinero")
+    public String dashboardListarMovDinero(Model modelo, @AuthenticationPrincipal OidcUser principal){
 
-        if(principal != null){
-            List<EntityEmpresa> listEmpresas = serviceEmpresa.listarEmpresasJpa();
-            modelo.addAttribute("empresas", listEmpresas);
+        if(principal != null) {
             modelo.addAttribute("nombreUsuario", principal.getIdToken().getClaims().get("nickname"));
-
-            return "listarEmpresas";
+            return "dashboardListarMovDinero";
         }
         else{
             return "index";
         }
     }
-    */
+
 }

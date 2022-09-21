@@ -95,14 +95,4 @@ public class ServiceEmpleado {
         return Boolean.TRUE;
     }
 
-    public Boolean asginarEmpleadoConEmpresaHtml(EntityEmpleado empleado){
-
-        try{
-            EntityEmpleado entityEmpleadoTemp = new EntityEmpleado(empleado.getNombre(), empleado.getCorreo(), empleado.getRol(), serviceEmpresa.buscarEmpresaPorIdJpa(Long.parseLong("43")));
-            repositoryEmpleado.save(entityEmpleadoTemp);
-        } catch (Exception e){
-            return Boolean.FALSE;
-        }
-        return Boolean.TRUE;
-    }
 }

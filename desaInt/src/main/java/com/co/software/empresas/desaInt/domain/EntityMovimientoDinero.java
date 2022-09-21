@@ -3,6 +3,8 @@ package com.co.software.empresas.desaInt.domain;
 import lombok.Data;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 @Data
 @Entity
@@ -17,6 +19,9 @@ public class EntityMovimientoDinero {
         this.montoMovimiento = montoMoviento;
         this.conceptoMovimiento = conceptoMovimiento;
         this.empleado = empleado;
+        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
+        LocalDateTime now = LocalDateTime.now();
+        this.fecha = dtf.format(now);
     }
 
     @Id
@@ -28,6 +33,9 @@ public class EntityMovimientoDinero {
 
     @Column(name = "concepto_movimiento")
     private String conceptoMovimiento;
+
+    @Column(name = "fecha")
+    private String fecha;
 
 
     @JoinColumn(name = "id_empleado", referencedColumnName = "id")
