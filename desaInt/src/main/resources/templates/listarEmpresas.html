@@ -8,6 +8,7 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
     <link rel="icon" type="image/x-icon" href="img/logo.ico">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="styles.css">
 
     <title>App DesaInt</title>
 </head>
@@ -20,7 +21,7 @@
 
             <div th:each="itemEmpresas : ${empresas}" class="card" style="width: 18rem;">
 
-                    <img src="/img/empresa.png" class="card-img-top my-3" alt="...">
+                    <img src="/img/empresa.svg" class="card-img-top my-3" alt="...">
 
                 <div class="card-body">
                     <h5 th:text="${itemEmpresas.nombre}" class="card-title">Card title</h5>
@@ -31,19 +32,19 @@
 
                 <div class="lead mb-2">
                     <form th:action="@{/crearEmpleado/{idEmpresa}(idEmpresa=${itemEmpresas.id})}" th:method="get">
-                        <button class="btn btn-success bi bi-person-plus" type="submit">Agregar empleado</button>
+                        <button class="btn btn-primary bi bi-person-plus custom-button" type="submit">&nbsp;Agregar empleado</button>
                     </form>
                 </div>
 
                 <div class="lead mb-2">
                     <form th:action="@{/editarEmpresa/{idEmpresa}(idEmpresa=${itemEmpresas.id})}" th:method="get">
-                        <button class="btn btn-warning bi bi-pencil-square" type="submit">Editar</button>
+                        <button class="btn btn-dark bi bi-pencil-square custom-button" type="submit">&nbsp;Editar</button>
                     </form>
                 </div>
 
                 <div class="lead mb-2">
                     <form th:action="@{/empresa/borrarEmpresa/{idEmpresa}(idEmpresa=${itemEmpresas.id})}" th:method="delete">
-                        <button class="btn btn-danger bi bi-trash" type="submit">Eliminar</button>
+                        <button class="btn btn-danger bi bi-trash custom-button" type="submit">&nbsp;Eliminar</button>
                     </form>
                 </div>
 

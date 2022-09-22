@@ -7,3 +7,29 @@
 
     margin-left: 60px;margin-right: 60px;
 }
+
+.custom-button{
+    width: 13.6em;
+}
+
+.start-button{
+    margin-bottom: 1em;
+}
+
+.dashboard{
+    width: 100%;
+}
+
+.dashboard-item{
+    width: 100%;
+    margin-bottom: 2px;
+    margin-top: 2px;
+}
+
+.dashboard-link{
+    padding-left: 1em !important;
+}
+
+.logout-label{
+    width:100%;
+}

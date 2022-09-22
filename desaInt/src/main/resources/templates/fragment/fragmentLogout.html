@@ -1,4 +1,4 @@
-<div th:fragment="logout" class="mx-5 my-4 px-5" style="text-align: end"  sec:authorize="isAuthenticated()">
+<div th:fragment="logout" class="mx-5 my-4 px-5" style="text-align: center"  sec:authorize="isAuthenticated()">
     <p th:text="'Hola usuario: ' + ${nombreUsuario}"></p>
     <a class="btn btn-outline-danger" th:href="@{/logout}">
         Salir <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-box-arrow-right" viewBox="0 0 16 16">

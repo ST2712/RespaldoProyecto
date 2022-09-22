@@ -9,6 +9,7 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="styles.css">
     <link rel="icon" type="image/x-icon" href="img/logo.ico">
     <title>App DesaInt</title>
 </head>
@@ -21,52 +22,52 @@
                 <a href=# class="d-flex align-items-center pb-3 mb-md-0 me-md-auto text-white text-decoration-none">
                     <span class="fs-5 d-none d-sm-inline">Menu</span>
                 </a>
-                <ul class="nav nav-pills flex-column mb-sm-auto mb-0 align-items-center align-items-sm-start" id="menu">
-                    <li class="nav-item">
-                        <a href="/" class="nav-link align-middle px-0">
+                <ul class="nav nav-pills flex-column mb-sm-auto mb-0 align-items-center align-items-sm-start dashboard" id="menu">
+                    <li class="nav-item dashboard-item">
+                        <a href="/" class="nav-link align-middle px-0 dashboard-link">
                             <i class="fs-4 bi-house"></i> <span class="ms-1 d-none d-sm-inline">Home</span>
                         </a>
                     </li>
-                    <li>
-                        <a href="#submenu1" data-bs-toggle="collapse" class="nav-link px-0 align-middle">
+                    <li class="dashboard-item">
+                        <a href="#submenu1" data-bs-toggle="collapse" class="nav-link px-0 align-middle dashboard-link">
                             <i class="fs-4 bi bi-building"></i> <span class="ms-1 d-none d-sm-inline">Empresas</span> </a>
                         <ul class="collapse show nav flex-column ms-1" id="submenu1" data-bs-parent="#menu">
-                            <li class="w-100">
-                                <a href="/dashboardListarEmpresas" class="nav-link px-0"> <span class="d-none d-sm-inline ">Listar</span>  </a>
+                            <li class="w-100 dashboard-item">
+                                <a href="/dashboardListarEmpresas" class="nav-link px-0"> <span class="d-none d-sm-inline dashboard-link">Listar</span>  </a>
                             </li>
-                            <li>
-                                <a href="/dashboardCrearEmpresa" class="nav-link px-0"> <span class="d-none d-sm-inline">Agregar</span>  </a>
+                            <li class="dashboard-item">
+                                <a href="/dashboardCrearEmpresa" class="nav-link px-0"> <span class="d-none d-sm-inline dashboard-link">Agregar</span>  </a>
                             </li>
-                            <li>
-                                <a href='#' class="nav-link px-0"> <span class="d-none d-sm-inline">Buscar</span>  </a>
+                            <li class="dashboard-item">
+                                <a href='#' class="nav-link px-0"> <span class="d-none d-sm-inline dashboard-link">Buscar</span>  </a>
                             </li>
                         </ul>
                     </li>
-                    <li>
-                        <a href="#submenu2" data-bs-toggle="collapse" class="nav-link px-0 align-middle">
+                    <li class="dashboard-item">
+                        <a href="#submenu2" data-bs-toggle="collapse" class="nav-link px-0 align-middle dashboard-link">
                             <i class="fs-4 bi bi-person-badge"></i> <span class="ms-1 d-none d-sm-inline">Empleados</span> </a>
                         <ul class="collapse nav flex-column ms-1" id="submenu2" data-bs-parent="#menu">
-                            <li class="w-100">
-                                <a href="/dashboardListarEmpleados" class="nav-link px-0"> <span class="d-none d-sm-inline">Listar</span> </a>
+                            <li class="w-100 dashboard-item">
+                                <a href="/dashboardListarEmpleados" class="nav-link px-0"> <span class="d-none d-sm-inline dashboard-link">Listar</span> </a>
                             </li>
-                            <li>
-                                <a href="#" class="nav-link px-0"> <span class="d-none d-sm-inline">Buscar</span> </a>
+                            <li class="dashboard-item">
+                                <a href="#" class="nav-link px-0"> <span class="d-none d-sm-inline dashboard-link">Buscar</span> </a>
                             </li>
                         </ul>
                     </li>
-                    <li>
-                        <a href="#submenu3" data-bs-toggle="collapse" class="nav-link px-0 align-middle ">
+                    <li class="dashboard-item">
+                        <a href="#submenu3" data-bs-toggle="collapse" class="nav-link px-0 align-middle dashboard-link">
                             <i class="fs-4 bi-cash"></i> <span class="ms-1 d-none d-sm-inline">Movimientos de dinero</span></a>
                         <ul class="collapse nav flex-column ms-1" id="submenu3" data-bs-parent="#menu">
-                            <li class="w-100">
-                                <a href="#" class="nav-link px-0"> <span class="d-none d-sm-inline">Listar</span> </a>
+                            <li class="w-100 dashboard-item">
+                                <a href="#" class="nav-link px-0"> <span class="d-none d-sm-inline dashboard-link">Listar</span> </a>
                             </li>
                         </ul>
                     </li>
                 </ul>
                 <hr>
 
-                <div th:insert="fragment/fragmentLogout :: logout"></div>
+                <div class="logout-label" th:insert="fragment/fragmentLogout :: logout"></div>
             </div>
         </div>
 
