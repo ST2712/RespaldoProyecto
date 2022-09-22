@@ -1,6 +1,3 @@
-function alertaCrearEmpleados(){
-    alert("Ya estas es la pagina para crear empleados")
-}
 
 function alertaListarEmpleados(){
     alert("Ya estas es la pagina para listar a los empleados")
@@ -12,4 +9,8 @@ function alertaListarEmpresas(){
 
 function alertaCrearEmpresas(){
     alert("Ya estas en la pagina para crear una empresa")
+}
+
+function alertaListarMovDinero(){
+    alert("Ya te encuentras en esta pagina")
 }

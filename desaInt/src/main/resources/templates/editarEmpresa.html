@@ -16,10 +16,10 @@
 
         <h1>Modificar empresa</h1>
         <form class="d-flex flex-column gap-3 align-items-center" th:action="@{/empresa/actualizarDatosEmpresa}" th:method="patch" th:object="${eEmpresa}">
-            <input th:field="*{nombre}" class="form-control" type="text" placeholder="Nombre" />
-            <input th:field="*{nit}" class="form-control" type="number" placeholder="487298" />
-            <input th:field="*{direccion}" class="form-control" type="text" placeholder="Cra 8 #70-62" />
-            <input th:field="*{telefono}" class="form-control" type="number" placeholder="2872837" />
+            <input th:field="*{nombre}" class="form-control" type="text" placeholder="Nombre" autocomplete="off" required/>
+            <input th:field="*{nit}" class="form-control" type="number" placeholder="487298" autocomplete="off" required/>
+            <input th:field="*{direccion}" class="form-control" type="text" placeholder="Cra 8 #70-62" autocomplete="off" required/>
+            <input th:field="*{telefono}" class="form-control" type="number" placeholder="2872837" autocomplete="off" required/>
             <input th:field="*{id}" type="hidden">
             <button class="btn btn-primary" type="submit">Editar</button>
         </form>

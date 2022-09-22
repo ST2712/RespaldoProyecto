@@ -5,8 +5,6 @@ import lombok.Data;
 
 import javax.persistence.*;
 import java.util.Collection;
-
-@Data
 @Entity
 @Table(name = "empresa")
 public class EntityEmpresa {
@@ -30,4 +28,53 @@ public class EntityEmpresa {
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "empresa")
     @JsonIgnore
     private Collection<EntityEmpleado> empleadoCollection;
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public String getNombre() {
+        return nombre;
+    }
+
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
+
+    public String getDireccion() {
+        return direccion;
+    }
+
+    public void setDireccion(String direccion) {
+        this.direccion = direccion;
+    }
+
+    public Long getTelefono() {
+        return telefono;
+    }
+
+    public void setTelefono(Long telefono) {
+        this.telefono = telefono;
+    }
+
+    public Long getNit() {
+        return nit;
+    }
+
+    public void setNit(Long nit) {
+        this.nit = nit;
+    }
+
+    public Collection<EntityEmpleado> getEmpleadoCollection() {
+        return empleadoCollection;
+    }
+
+    public void setEmpleadoCollection(Collection<EntityEmpleado> empleadoCollection) {
+        this.empleadoCollection = empleadoCollection;
+    }
+
 }

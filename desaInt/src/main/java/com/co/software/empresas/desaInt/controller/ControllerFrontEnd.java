@@ -176,4 +176,16 @@ public class ControllerFrontEnd {
         }
     }
 
+    @GetMapping(path = "/crearMovDinero/{idEmpleado}")
+    public String crearMovDinero(Model modelo, @AuthenticationPrincipal OidcUser principal, @PathVariable("idEmpleado") Long idEmpleado){
+
+        modelo.addAttribute("movDinero", new EntityMovimientoDinero(serviceEmpleado.buscarEmpleadoPorIdJpa(idEmpleado)));
+        if(principal != null){
+            return "crearMovDinero";
+        }
+        else{
+            return "/error";
+        }
+    }
+
 }

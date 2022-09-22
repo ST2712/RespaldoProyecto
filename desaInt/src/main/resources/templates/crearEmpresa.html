@@ -16,10 +16,10 @@
 
         <h1>Crear empresa</h1>
         <form class="d-flex flex-column gap-3 align-items-center" th:action="@{/empresa/insertarEmpresa}" th:method="post" th:object="${nEmpresa}">
-            <input th:field="*{nombre}" class="form-control" type="text" placeholder="Nombre" />
-            <input th:field="*{nit}" class="form-control" type="number" placeholder="2987282232" />
-            <input th:field="*{direccion}" class="form-control" type="text" placeholder="Ibague Cra 8 #87-32" />
-            <input th:field="*{telefono}" class="form-control" type="number" placeholder="2788993" />
+            <input th:field="*{nombre}" class="form-control" type="text" placeholder="Nombre" autocomplete="off" required/>
+            <input th:field="*{nit}" class="form-control" type="number" placeholder="2987282232" autocomplete="off" required/>
+            <input th:field="*{direccion}" class="form-control" type="text" placeholder="Ibague Cra 8 #87-32" autocomplete="off" required/>
+            <input th:field="*{telefono}" class="form-control" type="number" placeholder="2788993" autocomplete="off" required/>
 
             <button class="btn btn-primary" type="submit">Agregar empresa</button>
         </form>

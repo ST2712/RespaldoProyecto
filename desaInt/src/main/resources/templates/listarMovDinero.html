@@ -24,15 +24,21 @@
         <th scope="col">Monto</th>
         <th scope="col">Fecha</th>
         <th scope="col">Usuario</th>
+        <th scope="col">Opciones</th>
       </tr>
       </thead>
-      <div th:each="movDinero : ${movimientos}">
+      <div th:each="nMovDinero : ${movimientos}">
         <tbody>
         <tr>
-          <th scope="row" th:text="${movDinero.conceptoMovimiento}"></th>
-          <td th:text="${movDinero.montoMovimiento}"></td>
-          <td th:text="${movDinero.fecha}"></td>
-          <td th:text="${movDinero.empleado.nombre}"></td>
+          <th scope="row" th:text="${nMovDinero.conceptoMovimiento}"></th>
+          <td th:text="${nMovDinero.montoMovimiento}"></td>
+          <td th:text="${nMovDinero.fecha}"></td>
+          <td th:text="${nMovDinero.empleado.nombre}"></td>
+          <td>
+            <form th:action="@{/movDinero/borrarMovDinero/{idMovDinero}(idMovDinero=${nMovDinero.id})}" th:method="delete">
+              <button class="btn btn-danger btn bi-trash">Borrar</button>
+            </form>
+          </td>
         </tr>
         </tbody>
       </div>

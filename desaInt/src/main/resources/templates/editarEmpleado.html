@@ -16,9 +16,9 @@
 
         <h1>Modificar empleado</h1>
         <form class="d-flex flex-column gap-3 align-items-center" th:action="@{/empleado/actualizarEmpleadoParcial}" th:method="patch" th:object="${eEmpleado}">
-            <input th:field="*{nombre}" class="form-control" type="text" placeholder="Nombre" />
-            <input th:field="*{rol}" class="form-control" type="text" placeholder="VISITANTE, USER, ADMIN" />
-            <input th:field="*{correo}" class="form-control" type="text" placeholder="ejemplo@gmail.com" />
+            <input th:field="*{nombre}" class="form-control" type="text" placeholder="Nombre" autocomplete="off" required/>
+            <input th:field="*{rol}" class="form-control" type="text" placeholder="VISITANTE, USER, ADMIN" autocomplete="off" required/>
+            <input th:field="*{correo}" class="form-control" type="email" placeholder="ejemplo@gmail.com" autocomplete="off" required/>
             <input th:field="*{id}" type="hidden">
             <button class="btn btn-primary" type="submit">Editar</button>
         </form>
