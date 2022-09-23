@@ -34,6 +34,14 @@ public class ServiceMovimientoDinero {
         return list;
     }
 
+    public List<EntityMovimientoDinero> listarMovDineroBusqueda(String palabraClave){
+
+        if(palabraClave != null){
+            return repositoryMovimientoDinero.findAll(palabraClave);
+        }
+        return repositoryMovimientoDinero.findAll();
+    }
+
     public Boolean borrarMovDineroJpa(Long id){
 
         EntityMovimientoDinero movDineroBorrar = buscarMovimientoDineroIdJPA(id);

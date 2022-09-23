@@ -14,3 +14,7 @@ function alertaCrearEmpresas(){
 function alertaListarMovDinero(){
     alert("Ya te encuentras en esta pagina")
 }
+
+function limpiarCampos(){
+    window.location.reload();
+}

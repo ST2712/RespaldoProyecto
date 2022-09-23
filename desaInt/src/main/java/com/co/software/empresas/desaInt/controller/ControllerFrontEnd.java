@@ -9,6 +9,7 @@ import com.co.software.empresas.desaInt.services.ServiceEmpresa;
 import com.co.software.empresas.desaInt.services.ServiceMovimientoDinero;
 import com.co.software.empresas.desaInt.util.EnumRol;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.repository.query.Param;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.oauth2.core.oidc.user.OidcUser;
 import org.springframework.stereotype.Controller;
@@ -28,6 +29,8 @@ public class ControllerFrontEnd {
     ServiceEmpresa serviceEmpresa;
     @Autowired
     ServiceMovimientoDinero serviceMovimientoDinero;
+    @Autowired
+    RepositoryEmpleado repositoryEmpleado;
 
     @GetMapping(path = "/")
     public String home(Model model, @AuthenticationPrincipal OidcUser principal){
@@ -35,10 +38,12 @@ public class ControllerFrontEnd {
     }
 
     @GetMapping(path = "/pagina2")
-    public String pagina2(Model modelo, @AuthenticationPrincipal OidcUser principal){
+    public String pagina2(Model modelo, @AuthenticationPrincipal OidcUser principal, @Param("palabraClave") String palabraClave){
 
         if(principal != null){
-            List<EntityEmpleado> listEmpleados = serviceEmpleado.listarEmpleadosJpa();
+
+            List<EntityEmpleado> listEmpleados = serviceEmpleado.listarEmpleadosintentoBusqueda(palabraClave);
+            modelo.addAttribute("palabraClave", palabraClave);
             modelo.addAttribute("empleados", listEmpleados);
             modelo.addAttribute("nombreUsuario", principal.getIdToken().getClaims().get("nickname"));
 
@@ -82,11 +87,12 @@ public class ControllerFrontEnd {
     }
 
     @GetMapping(path = "/listarEmpresas")
-    public String listarEmpresas(Model modelo, @AuthenticationPrincipal OidcUser principal){
+    public String listarEmpresas(Model modelo, @AuthenticationPrincipal OidcUser principal, @Param("palabraClave") String palabraClave){
 
         if(principal != null){
-            List<EntityEmpresa> listEmpresas = serviceEmpresa.listarEmpresasJpa();
+            List<EntityEmpresa> listEmpresas = serviceEmpresa.listarEmpresasBusqueda(palabraClave);
             modelo.addAttribute("empresas", listEmpresas);
+            modelo.addAttribute("palabraClave", palabraClave);
             modelo.addAttribute("nombreUsuario", principal.getIdToken().getClaims().get("nickname"));
 
             return "listarEmpresas";
@@ -157,11 +163,17 @@ public class ControllerFrontEnd {
     }
 
     @GetMapping(path = "/listarMovDinero")
-    public String listarMovDinero(Model modelo, @AuthenticationPrincipal OidcUser principal){
+    public String listarMovDinero(Model modelo, @AuthenticationPrincipal OidcUser principal, @Param("palabraClave") String palabraClave){
 
-        List<EntityMovimientoDinero> listMovDinero = serviceMovimientoDinero.listarMovDineroJpa();
-        modelo.addAttribute("movimientos", listMovDinero);
-        return "listarMovDinero";
+        if(principal != null){
+            List<EntityMovimientoDinero> listMovDinero = serviceMovimientoDinero.listarMovDineroBusqueda(palabraClave);
+            modelo.addAttribute("movimientos", listMovDinero);
+            modelo.addAttribute("palabraClave",palabraClave);
+            return "listarMovDinero";
+        }
+        else{
+            return "index";
+        }
     }
 
     @GetMapping(path = "/dashboardListarMovDinero")

@@ -29,6 +29,14 @@ public class ServiceEmpresa {
          return list;
     }
 
+    public List<EntityEmpresa> listarEmpresasBusqueda(String palabraClave){
+
+        if(palabraClave != null){
+            return repositoryEmpresa.findAll(palabraClave);
+        }
+        return repositoryEmpresa.findAll();
+    }
+
     public Boolean borrarEmpresaJpa(Long id){
 
         Boolean encontrado = Boolean.FALSE;

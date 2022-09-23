@@ -34,6 +34,14 @@ public class ServiceEmpleado {
         return list;
     }
 
+    public List<EntityEmpleado> listarEmpleadosintentoBusqueda(String palabraClave){
+
+        if(palabraClave != null){
+            return repositoryEmpleado.findAll(palabraClave);
+        }
+        return repositoryEmpleado.findAll();
+    }
+
     public Boolean borrarEmpleadoJpa(Long id){
 
         List<EntityEmpleado> list = listarEmpleadosJpa();
