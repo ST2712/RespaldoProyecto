@@ -167,8 +167,10 @@ public class ControllerFrontEnd {
 
         if(principal != null){
             List<EntityMovimientoDinero> listMovDinero = serviceMovimientoDinero.listarMovDineroBusqueda(palabraClave);
+            Double total = serviceMovimientoDinero.calcularTotal(listMovDinero);
             modelo.addAttribute("movimientos", listMovDinero);
             modelo.addAttribute("palabraClave",palabraClave);
+            modelo.addAttribute("total", total);
             return "listarMovDinero";
         }
         else{
@@ -198,6 +200,14 @@ public class ControllerFrontEnd {
         else{
             return "/error";
         }
+    }
+
+    @GetMapping(path = "/editarMovDinero/{idMovDinero}")
+    public String editarMovDinero(Model modelo, @PathVariable("idMovDinero") Long idMovDinero){
+
+        EntityMovimientoDinero movTemp = serviceMovimientoDinero.buscarMovimientoDineroIdJPA(idMovDinero);
+        modelo.addAttribute("eMovDinero", movTemp);
+        return "editarMovDinero";
     }
 
 }

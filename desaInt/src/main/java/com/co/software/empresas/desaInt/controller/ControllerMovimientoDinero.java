@@ -81,4 +81,16 @@ public class ControllerMovimientoDinero {
         }
     }
 
+    @PatchMapping(path = "/editarMovDinero")
+    public RedirectView editarMovDinero(@ModelAttribute EntityMovimientoDinero movDinero, Model modelo){
+
+        modelo.addAttribute(movDinero);
+        if(serviceMovimientoDinero.actualizarDatosMovDineroJpa(movDinero, movDinero.getEmpleado()).equals(Boolean.TRUE)){
+            return new RedirectView("/listarMovDinero");
+        }
+        else{
+            return new RedirectView("/error");
+        }
+    }
+
 }

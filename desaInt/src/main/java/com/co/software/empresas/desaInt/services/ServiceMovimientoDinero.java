@@ -42,6 +42,16 @@ public class ServiceMovimientoDinero {
         return repositoryMovimientoDinero.findAll();
     }
 
+    public Double calcularTotal(List<EntityMovimientoDinero> listTotal){
+
+        Double total = 0.0;
+        for (int i = 0; i < listTotal.size(); i++){
+
+            total += listTotal.get(i).getMontoMovimiento();
+        }
+        return total;
+    }
+
     public Boolean borrarMovDineroJpa(Long id){
 
         EntityMovimientoDinero movDineroBorrar = buscarMovimientoDineroIdJPA(id);

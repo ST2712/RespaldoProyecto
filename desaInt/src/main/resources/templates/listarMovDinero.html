@@ -19,19 +19,16 @@
   <div class="mx-5 my-4 px-5" style="text-align: end"  sec:authorize="isAuthenticated()">
     <form class="form-inline" th:action="@{/listarMovDinero}">
       <div class="form-group mb-2">
-        <label>Filtrar: </label>
       </div>
       <div class="form-group mx-sm-3 mb-2">
-        <input type="text" name="palabraClave" class="form-control" id="palabraClaveEmpleados" th:value="${palabraClave}" placeholder="Digite el valor a buscar" autocomplete="off" required>
+        <input type="text" name="palabraClave" class="form-control" id="palabraClaveEmpleados" th:value="${palabraClave}" placeholder="Digite el valor a buscar" autocomplete="off">
       </div>
       <input type="submit" class="btn btn-primary mb-2" value="Buscar">
-      &nbsp;&nbsp;
-      <input type="button" class="btn btn-secondary mb-2" value="Limpiar" onclick="limpiarCampos()">
     </form>
   </div>
 
   <div id="tablaMovDinero" class="px-4 py-5 my-5 text-center">
-    <h1 class="display-5 fw-bold">Listado de movimientos de dinero</h1>
+    <h1 class="display-5 fw-bold">Movimientos de dinero</h1>
     <table class="table table-bordered border border-dark px-4 py-5 my-5 text-center">
       <thead>
       <tr>
@@ -50,6 +47,9 @@
           <td th:text="${nMovDinero.fecha}"></td>
           <td th:text="${nMovDinero.empleado.nombre}"></td>
           <td>
+            <form th:action="@{/editarMovDinero/{idMovDinero}(idMovDinero=${nMovDinero.id})}" th:method="get">
+              <button class="btn btn-warning btn bi-pen mb-2">Editar</button>
+            </form>
             <form th:action="@{/movDinero/borrarMovDinero/{idMovDinero}(idMovDinero=${nMovDinero.id})}" th:method="delete">
               <button class="btn btn-danger btn bi-trash">Borrar</button>
             </form>
@@ -58,6 +58,10 @@
         </tbody>
       </div>
     </table>
+  </div>
+
+  <div class="mx-3 my-3 px-3" style="text-align: end">
+    <textarea style="width: 300px; height: 50px;" th:text="'Total: ' + ${total}"></textarea>
   </div>
 
 </main>
