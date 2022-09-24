@@ -20,7 +20,7 @@ public class ServiceMovimientoDinero {
     public Boolean insertarMovDineroJpa(EntityMovimientoDinero movimientoDinero, EntityEmpleado empleado){
 
         try{
-            EntityMovimientoDinero entityMovDineroTemp = new EntityMovimientoDinero(movimientoDinero.getMontoMoviento(), movimientoDinero.getConceptoMovimiento(), empleado);
+            EntityMovimientoDinero entityMovDineroTemp = new EntityMovimientoDinero(movimientoDinero.getMontoMovimiento(), movimientoDinero.getConceptoMovimiento(), empleado);
             repositoryMovimientoDinero.save(entityMovDineroTemp);
         } catch (Exception e){
             return Boolean.FALSE;
@@ -34,19 +34,62 @@ public class ServiceMovimientoDinero {
         return list;
     }
 
+    public List<EntityMovimientoDinero> listarMovDineroBusqueda(String palabraClave){
+
+        if(palabraClave != null){
+            return repositoryMovimientoDinero.findAll(palabraClave);
+        }
+        return repositoryMovimientoDinero.findAll();
+    }
+
+    public Double calcularTotal(List<EntityMovimientoDinero> listTotal){
+
+        Double total = 0.0;
+        for (int i = 0; i < listTotal.size(); i++){
+
+            total += listTotal.get(i).getMontoMovimiento();
+        }
+        return total;
+    }
+
     public Boolean borrarMovDineroJpa(Long id){
 
-        List<EntityMovimientoDinero> list = listarMovDineroJpa();
-        Boolean encontrado = Boolean.FALSE;
+        EntityMovimientoDinero movDineroBorrar = buscarMovimientoDineroIdJPA(id);
 
-        for (int i = 0; i < list.size() && !encontrado; i++){
-
-            EntityMovimientoDinero movActual = list.get(i);
-            if( movActual.getId() == id){
-                repositoryMovimientoDinero.delete(movActual);
-                encontrado = Boolean.TRUE;
-            }
+        if(movDineroBorrar == null){
+            return Boolean.FALSE;
         }
-        return encontrado;
+        else{
+            repositoryMovimientoDinero.delete(movDineroBorrar);
+            return Boolean.TRUE;
+        }
+    }
+
+    public EntityMovimientoDinero buscarMovimientoDineroIdJPA(Long id){
+
+        return repositoryMovimientoDinero.findById(id).orElse(null);
+    }
+
+    public Boolean actualizarDatosMovDineroJpa(EntityMovimientoDinero movimientoDinero, EntityEmpleado empleado){
+
+        EntityMovimientoDinero movDineroTemp = repositoryMovimientoDinero.findById(movimientoDinero.getId()).orElse(null);
+
+        if(movDineroTemp == null){
+            return Boolean.FALSE;
+        }
+
+        if(movimientoDinero.getMontoMovimiento() != null){
+            movDineroTemp.setMontoMovimiento(movimientoDinero.getMontoMovimiento());
+        }
+        if(movimientoDinero.getConceptoMovimiento() != null){
+            movDineroTemp.setConceptoMovimiento(movimientoDinero.getConceptoMovimiento());
+        }
+        if(empleado != null){
+            movDineroTemp.setEmpleado(empleado);
+        }
+
+        repositoryMovimientoDinero.save(movDineroTemp);
+
+        return Boolean.TRUE;
     }
 }
