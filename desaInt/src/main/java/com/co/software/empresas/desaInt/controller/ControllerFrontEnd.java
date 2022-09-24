@@ -7,7 +7,6 @@ import com.co.software.empresas.desaInt.repository.RepositoryEmpleado;
 import com.co.software.empresas.desaInt.services.ServiceEmpleado;
 import com.co.software.empresas.desaInt.services.ServiceEmpresa;
 import com.co.software.empresas.desaInt.services.ServiceMovimientoDinero;
-import com.co.software.empresas.desaInt.util.EnumRol;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.repository.query.Param;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -16,7 +15,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
 
 import java.util.List;
 
@@ -36,6 +34,63 @@ public class ControllerFrontEnd {
     public String home(Model model, @AuthenticationPrincipal OidcUser principal){
         return "index";
     }
+
+
+    @GetMapping(path = "/listarEmpresas")
+    public String listarEmpresas(Model modelo, @AuthenticationPrincipal OidcUser principal, @Param("palabraClave") String palabraClave){
+
+        if(principal != null){
+            List<EntityEmpresa> listEmpresas = serviceEmpresa.listarEmpresasBusqueda(palabraClave);
+            modelo.addAttribute("empresas", listEmpresas);
+            modelo.addAttribute("palabraClave", palabraClave);
+            modelo.addAttribute("nombreUsuario", principal.getIdToken().getClaims().get("nickname"));
+
+            return "listarEmpresas";
+        }
+        else{
+            return "index";
+        }
+    }
+
+    @GetMapping(path = "/crearEmpresa")
+    public String crearEmpresa(Model modelo){
+        modelo.addAttribute("nEmpresa", new EntityEmpresa());
+        return "crearEmpresa";
+    }
+
+    @GetMapping(path = "/editarEmpresa/{idEmpresa}")
+    public String editarEmpresa(Model modelo, @PathVariable("idEmpresa") Long idEmpresa){
+
+        EntityEmpresa eTemp = serviceEmpresa.buscarEmpresaPorIdJpa(idEmpresa);
+        modelo.addAttribute("eEmpresa", eTemp);
+        return "editarEmpresa";
+    }
+
+    @GetMapping(path = "/dashboardCrearEmpresa")
+    public String dashboardCrearEmpresa(Model modelo, @AuthenticationPrincipal OidcUser principal){
+
+        if(principal != null) {
+            modelo.addAttribute("nombreUsuario", principal.getIdToken().getClaims().get("nickname"));
+            return "dashboardCrearEmpresa";
+        }
+        else{
+            return "index";
+        }
+    }
+
+
+    @GetMapping(path = "/dashboard")
+    public String dashboard(Model modelo, @AuthenticationPrincipal OidcUser principal){
+
+        if(principal != null) {
+            modelo.addAttribute("nombreUsuario", principal.getIdToken().getClaims().get("nickname"));
+            return "dashboard";
+        }
+        else{
+            return "index";
+        }
+    }
+
 
     @GetMapping(path = "/pagina2")
     public String pagina2(Model modelo, @AuthenticationPrincipal OidcUser principal, @Param("palabraClave") String palabraClave){
@@ -62,17 +117,12 @@ public class ControllerFrontEnd {
         return "editarEmpleado";
     }
 
-    @GetMapping(path = "/dashboard")
-    public String dashboard(Model modelo, @AuthenticationPrincipal OidcUser principal){
-
-        if(principal != null) {
-            modelo.addAttribute("nombreUsuario", principal.getIdToken().getClaims().get("nickname"));
-            return "dashboard";
-        }
-        else{
-            return "index";
-        }
+    @GetMapping(path = "/crearEmpleado/{idEmpresa}")
+    public String crearEmpleado(Model modelo, @PathVariable("idEmpresa") Long idEmpresa){
+        modelo.addAttribute("nEmpleado", new EntityEmpleado(serviceEmpresa.buscarEmpresaPorIdJpa(idEmpresa)));
+        return "crearEmpleado";
     }
+
 
     @GetMapping(path = "/dashboardCrearEmpleado")
     public String dashboardCrearEmpleado(Model modelo, @AuthenticationPrincipal OidcUser principal){
@@ -86,49 +136,6 @@ public class ControllerFrontEnd {
         }
     }
 
-    @GetMapping(path = "/listarEmpresas")
-    public String listarEmpresas(Model modelo, @AuthenticationPrincipal OidcUser principal, @Param("palabraClave") String palabraClave){
-
-        if(principal != null){
-            List<EntityEmpresa> listEmpresas = serviceEmpresa.listarEmpresasBusqueda(palabraClave);
-            modelo.addAttribute("empresas", listEmpresas);
-            modelo.addAttribute("palabraClave", palabraClave);
-            modelo.addAttribute("nombreUsuario", principal.getIdToken().getClaims().get("nickname"));
-
-            return "listarEmpresas";
-        }
-        else{
-            return "index";
-        }
-    }
-
-    @GetMapping(path = "/dashboardListarEmpresas")
-    public String dashboardListarEmpresas(Model modelo, @AuthenticationPrincipal OidcUser principal){
-
-        if(principal != null){
-            List<EntityEmpresa> listEmpresas = serviceEmpresa.listarEmpresasJpa();
-            modelo.addAttribute("empresas", listEmpresas);
-            modelo.addAttribute("nombreUsuario", principal.getIdToken().getClaims().get("nickname"));
-            return "dashboardListarEmpresas";
-        }
-        else{
-            return "index";
-        }
-    }
-
-    @GetMapping(path = "/editarEmpresa/{idEmpresa}")
-    public String editarEmpresa(Model modelo, @PathVariable("idEmpresa") Long idEmpresa){
-
-        EntityEmpresa eTemp = serviceEmpresa.buscarEmpresaPorIdJpa(idEmpresa);
-        modelo.addAttribute("eEmpresa", eTemp);
-        return "editarEmpresa";
-    }
-
-    @GetMapping(path = "/crearEmpleado/{idEmpresa}")
-    public String crearEmpleado(Model modelo, @PathVariable("idEmpresa") Long idEmpresa){
-        modelo.addAttribute("nEmpleado", new EntityEmpleado(serviceEmpresa.buscarEmpresaPorIdJpa(idEmpresa)));
-        return "crearEmpleado";
-    }
 
     @GetMapping(path = "/dashboardListarEmpleados")
     public String dashboardListarEmpleados(Model modelo, @AuthenticationPrincipal OidcUser principal){
@@ -144,23 +151,6 @@ public class ControllerFrontEnd {
         }
     }
 
-    @GetMapping(path = "/crearEmpresa")
-    public String crearEmpresa(Model modelo){
-        modelo.addAttribute("nEmpresa", new EntityEmpresa());
-        return "crearEmpresa";
-    }
-
-    @GetMapping(path = "/dashboardCrearEmpresa")
-    public String dashboardCrearEmpresa(Model modelo, @AuthenticationPrincipal OidcUser principal){
-
-        if(principal != null) {
-            modelo.addAttribute("nombreUsuario", principal.getIdToken().getClaims().get("nickname"));
-            return "dashboardCrearEmpresa";
-        }
-        else{
-            return "index";
-        }
-    }
 
     @GetMapping(path = "/listarMovDinero")
     public String listarMovDinero(Model modelo, @AuthenticationPrincipal OidcUser principal, @Param("palabraClave") String palabraClave){
@@ -178,17 +168,6 @@ public class ControllerFrontEnd {
         }
     }
 
-    @GetMapping(path = "/dashboardListarMovDinero")
-    public String dashboardListarMovDinero(Model modelo, @AuthenticationPrincipal OidcUser principal){
-
-        if(principal != null) {
-            modelo.addAttribute("nombreUsuario", principal.getIdToken().getClaims().get("nickname"));
-            return "dashboardListarMovDinero";
-        }
-        else{
-            return "index";
-        }
-    }
 
     @GetMapping(path = "/crearMovDinero/{idEmpleado}")
     public String crearMovDinero(Model modelo, @AuthenticationPrincipal OidcUser principal, @PathVariable("idEmpleado") Long idEmpleado){
@@ -208,6 +187,18 @@ public class ControllerFrontEnd {
         EntityMovimientoDinero movTemp = serviceMovimientoDinero.buscarMovimientoDineroIdJPA(idMovDinero);
         modelo.addAttribute("eMovDinero", movTemp);
         return "editarMovDinero";
+    }
+
+    @GetMapping(path = "/dashboardListarMovDinero")
+    public String dashboardListarMovDinero(Model modelo, @AuthenticationPrincipal OidcUser principal){
+
+        if(principal != null) {
+            modelo.addAttribute("nombreUsuario", principal.getIdToken().getClaims().get("nickname"));
+            return "dashboardListarMovDinero";
+        }
+        else{
+            return "index";
+        }
     }
 
 }
