@@ -1,0 +1,69 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
+    <link rel="icon" type="image/x-icon" href="img/logo.ico">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css">
+
+    <title>App DesaInt</title>
+</head>
+<body>
+<main>
+
+    <div class="mx-5 my-4 px-5" style="text-align: end"  sec:authorize="isAuthenticated()">
+        <form class="form-inline" th:action="@{/listarEmpresas}">
+            <div class="form-group mb-2">
+            </div>
+            <div class="form-group mx-sm-3 mb-2">
+                <input type="text" name="palabraClave" class="form-control" id="palabraClaveEmpleados" th:value="${palabraClave}" placeholder="Digite el valor a buscar" autocomplete="off">
+            </div>
+            <input type="submit" class="btn btn-primary mb-2" value="Buscar">
+        </form>
+    </div>
+
+
+    <div sec:authorize="isAuthenticated()" id="tablaEmpresas" class="px-4 py-5 my-5 text-center">
+        <h1 class="display-5 fw-bold">Empresas</h1>
+        <table class="table table-bordered border border-dark px-4 py-5 my-5 text-center">
+            <thead>
+            <tr>
+                <th scope="col">Nombre</th>
+                <th scope="col">Nit</th>
+                <th scope="col">Dirección</th>
+                <th scope="col">Telefono</th>
+                <th scope="col">Opciones</th>
+            </tr>
+            </thead>
+            <div th:each="itemEmpresas : ${empresas}">
+                <tbody>
+                <tr>
+                    <th scope="row" th:text="${itemEmpresas.nombre}"></th>
+                    <td th:text="${itemEmpresas.nit}"></td>
+                    <td th:text="${itemEmpresas.direccion}"></td>
+                    <td th:text="${itemEmpresas.telefono}"></td>
+                    <td>
+                        <form th:action="@{/editarEmpresa/{idEmpresa}(idEmpresa=${itemEmpresas.id})}" th:method="get">
+                            <button class="btn btn-warning btn bi-pen mb-2">Editar</button>
+                        </form>
+                        <form th:action="@{/empresa/borrarEmpresa/{idEmpresa}(idEmpresa=${itemEmpresas.id})}" th:method="delete">
+                            <button class="btn btn-danger btn bi-trash mb-2">Borrar</button>
+                        </form>
+                        <form th:action="@{/crearEmpleado/{idEmpresa}(idEmpresa=${itemEmpresas.id})}" th:method="get">
+                            <button class="btn btn-success btn bi bi-person-plus">Agregar empleado</button>
+                        </form>
+                    </td>
+                </tr>
+                </tbody>
+            </div>
+        </table>
+    </div>
+
+</main>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-u1OknCvxWvY5kfmNBILK2hRnQC3Pr17a+RTT6rIHI7NnikvbZlHgTPOOmMi466C8" crossorigin="anonymous"></script>
+</body>
+</html>
