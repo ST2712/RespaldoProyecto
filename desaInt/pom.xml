@@ -9,7 +9,7 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.co.software.empresas</groupId>
-	<artifactId>UdeaDemo</artifactId>
+	<artifactId>desaInt</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>desaInt</name>
 	<description>Proyecto de un aplicativo web para que un administrador pueda gestionar los ingresos y egresos de su empresa. Desarrolladores Integrales</description>
